@@ -1,0 +1,1670 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2une.ai — AI Data &amp; Human Infrastructure for Frontier AI</title>
+<meta name="description" content="2une is the infrastructure layer between human expertise and frontier AI models — expert knowledge, proprietary data, and human evaluation, delivered as model-ready infrastructure." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   2une.ai v2 — design tokens (extracted from live 2une.ai brand)
+   Type: Space Grotesk (display) · Inter (body) · JetBrains Mono (labels)
+   ============================================================ */
+:root {
+  --bg: #060609;
+  --bg-raise: #0b0b10;
+  --surface: #0f0f15;
+  --surface-2: #14141c;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --text: #f2f3f7;
+  --text-dim: #a3a9b7;
+  --text-faint: #6b7180;
+  --violet: #8b7cf6;
+  --violet-bright: #a78bfa;
+  --violet-soft: rgba(139, 124, 246, 0.13);
+  --cyan: #55d6e8;
+  --cyan-soft: rgba(85, 214, 232, 0.12);
+  --green: #45d983;
+  --pill: #f2f3f7;
+  --pill-ink: #0a0a0e;
+  --font-display: "Space Grotesk", "Helvetica Neue", sans-serif;
+  --font-body: "Inter", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", monospace;
+  --radius-btn: 8px;
+  --radius-card: 12px;
+  --radius-sm: 10px;
+  --page: 76rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--violet); color: #0a0a0e; }
+
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+.page { max-width: var(--page); margin: 0 auto; padding: 0 1.5rem; }
+@media (min-width: 1024px) { .page { padding: 0 2.5rem; } }
+
+/* ---------- typography ---------- */
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+.h-section {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.h-card {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+.accent { color: var(--violet); }
+.accent-cyan { color: var(--cyan); }
+/* heading emphasis: same font, brand purple (replaces the old serif accent) */
+.hl { color: var(--violet-bright); }
+.mono-label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  color: var(--text-faint);
+}
+.mono-label.violet { color: var(--violet-bright); }
+.mono-label.cyan { color: var(--cyan); }
+.body-lg { font-size: 1.125rem; line-height: 1.7; color: var(--text-dim); }
+.body-md { font-size: 0.9375rem; line-height: 1.65; color: var(--text-dim); }
+
+/* ---------- section chrome ---------- */
+section { position: relative; padding: 7rem 0; }
+@media (min-width: 768px) { section { padding: 9.5rem 0; } }
+
+.section-head { max-width: 46rem; }
+.section-head .kicker {
+  display: flex; align-items: baseline; gap: 1rem;
+}
+.kicker .rule { flex: 1; height: 1px; background: var(--line); transform: translateY(-0.3em); }
+.section-head h2 { margin-top: 1.4rem; }
+.section-head .intro { margin-top: 1.25rem; max-width: 40rem; }
+
+/* ---------- buttons (one system) ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  letter-spacing: 0; text-transform: none;
+  padding: 0.72rem 1.35rem; border-radius: var(--radius-btn);
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.btn .arr { transition: transform 0.2s var(--ease); }
+.btn:hover .arr { transform: translateX(3px); }
+.btn-primary { background: var(--violet); color: #fff; }
+.btn-primary:hover { background: var(--violet-bright); }
+.btn-secondary { border: 1px solid var(--line-strong); color: var(--text); }
+.btn-secondary:hover { border-color: var(--violet); background: rgba(139, 124, 246, 0.06); }
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(6, 6, 9, 0.82);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 1.1rem; padding-bottom: 1.1rem;
+}
+.nav-logo { display: flex; align-items: baseline; gap: 0.8rem; }
+.nav-logo .wordmark { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; }
+.nav-logo .byline { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0; color: var(--text-faint); }
+.nav-links { display: none; gap: 2rem; }
+@media (min-width: 900px) { .nav-links { display: flex; } }
+.nav-links a {
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  letter-spacing: 0; color: var(--text-dim);
+  transition: color 0.2s ease;
+}
+.nav-links a:hover { color: var(--text); }
+.nav .btn { padding: 0.6rem 1.15rem; }
+
+/* hamburger toggle (mobile only) */
+.nav-toggle {
+  display: none; width: 42px; height: 42px; margin-right: -0.5rem;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border-radius: var(--radius-btn);
+  transition: background 0.2s ease;
+}
+.nav-toggle:hover { background: rgba(255, 255, 255, 0.05); }
+.nav-toggle span {
+  width: 20px; height: 1.5px; border-radius: 2px; background: var(--text);
+  transition: transform 0.3s var(--ease), opacity 0.2s ease;
+}
+body.menu-open .nav-toggle span:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
+body.menu-open .nav-toggle span:nth-child(2) { transform: translateY(-3.25px) rotate(-45deg); }
+
+/* mobile menu panel */
+.mm-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 44;
+  background: rgba(4, 4, 7, 0.5); opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+body.menu-open .mm-backdrop { opacity: 1; pointer-events: auto; }
+.mobile-menu {
+  display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 45;
+  flex-direction: column;
+  padding: 5.4rem 1.5rem 1.8rem;
+  background: rgba(8, 8, 12, 0.98); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  transform: translateY(-14px); opacity: 0; pointer-events: none;
+  transition: transform 0.35s var(--ease), opacity 0.3s ease;
+}
+body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto; }
+.mm-links { display: flex; flex-direction: column; }
+.mm-links a {
+  padding: 1.05rem 0.25rem; font-size: 1.15rem; font-weight: 500; color: var(--text);
+  border-bottom: 1px solid var(--line);
+  transition: color 0.2s ease;
+}
+.mm-links a:hover { color: var(--violet-bright); }
+.mm-cta { margin-top: 1.6rem; width: 100%; justify-content: center; padding: 0.9rem 1.35rem; }
+
+@media (max-width: 899px) {
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .mm-backdrop { display: block; }
+  .mobile-menu { display: flex; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; flex-direction: column; padding: 0;
+  overflow: hidden;
+}
+.hero-body {
+  position: relative; z-index: 3; flex: 1; width: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+  padding-top: 7.5rem; padding-bottom: 3.5rem;
+}
+.hero-center {
+  max-width: 54rem; margin: 0 auto; text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 0.7rem; width: fit-content;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.hero-chip:hover {
+  border-color: rgba(139, 124, 246, 0.5);
+  background: rgba(139, 124, 246, 0.06);
+  box-shadow: 0 0 0 1px rgba(139, 124, 246, 0.12), 0 10px 34px -14px rgba(139, 124, 246, 0.6);
+}
+.hero-chip .diamond { color: var(--violet-bright); font-size: 0.7rem; }
+.hero-chip .txt { font-family: var(--font-body); font-size: 0.8438rem; letter-spacing: 0.005em; color: var(--text-dim); }
+.hero-title {
+  margin-top: 2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.9rem, 6.6vw, 5.3rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+}
+.hero-title .hl { color: var(--violet-bright); }
+.hero-sub {
+  margin-top: 1.6rem; max-width: 40rem;
+  font-size: 1.0625rem; line-height: 1.72; color: var(--text-dim);
+}
+.hero-ctas { margin-top: 2.3rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.9rem; }
+.btn-glow {
+  box-shadow: 0 10px 40px -12px rgba(139, 124, 246, 0.7);
+  transition: transform 0.2s var(--ease), box-shadow 0.25s var(--ease), background 0.2s var(--ease);
+}
+.btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 52px -12px rgba(139, 124, 246, 0.92);
+}
+
+/* hero stats trust bar — clean typography over the background */
+.hero-stats {
+  position: relative; z-index: 3;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(6, 6, 9, 0) 0%, rgba(6, 6, 9, 0.4) 100%);
+}
+.stats-row { display: grid; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .stats-row { grid-template-columns: repeat(4, 1fr); } }
+.hero-stat {
+  padding: 2.4rem 1.25rem 2.6rem; text-align: center; position: relative;
+  opacity: 0; animation: lift-in 0.8s var(--ease) forwards;
+  animation-delay: calc(0.7s + var(--si, 0) * 0.12s);
+}
+@media (min-width: 720px) {
+  .hero-stat + .hero-stat::before {
+    content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 1px; height: 2.6rem; background: var(--line);
+  }
+}
+.hero-stat .num {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(2rem, 3.2vw, 2.8rem); letter-spacing: -0.02em;
+}
+.hero-stat .lbl { margin-top: 0.5rem; font-size: 0.9063rem; color: var(--text-dim); }
+
+/* hero atmosphere: particle globe world */
+.hero-atmo { position: absolute; inset: 0; pointer-events: none; perspective: 1200px; overflow: hidden; }
+.atmo-base {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 72% -12%, #17132e 0%, rgba(23, 19, 46, 0) 58%),
+    radial-gradient(80% 60% at 8% 108%, #140f24 0%, rgba(20, 15, 36, 0) 55%),
+    linear-gradient(180deg, #07070b 0%, #0a0916 55%, #0b0817 100%);
+}
+/* radial purple glow behind the globe */
+.globe-glow {
+  position: absolute; left: 50%; top: 60%; transform: translate(-50%, -50%);
+  width: min(1080px, 122vw); height: min(1080px, 122vw); border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(139, 124, 246, 0.24) 0%, rgba(139, 124, 246, 0.08) 34%, transparent 62%);
+  animation: glow-pulse 9s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+/* soft orbital rings */
+.orbit {
+  position: absolute; left: 50%; top: 60%;
+  border: 1px solid rgba(139, 124, 246, 0.14); border-radius: 50%;
+  transform: translate(-50%, -50%) rotateX(74deg);
+}
+.orbit-1 { width: min(1000px, 108vw); height: min(1000px, 108vw); animation: orbit-spin 46s linear infinite; }
+.orbit-2 { width: min(720px, 78vw); height: min(720px, 78vw); border-color: rgba(139, 124, 246, 0.09); animation: orbit-spin 68s linear infinite reverse; }
+@keyframes orbit-spin {
+  to { transform: translate(-50%, -50%) rotateX(74deg) rotateZ(360deg); }
+}
+/* particle globe canvas */
+.globe-canvas {
+  position: absolute; left: 50%; top: 60%; transform: translate(-50%, -50%);
+  width: min(900px, 94vw); height: min(900px, 94vw);
+}
+/* subtle flat grid */
+.atmo-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(78% 68% at 50% 56%, #000 18%, transparent 76%);
+          mask-image: radial-gradient(78% 68% at 50% 56%, #000 18%, transparent 76%);
+}
+/* floating dust particles (purple / white only) */
+.atmo-particles { position: absolute; inset: 0; }
+.atmo-particles::before, .atmo-particles::after {
+  content: ""; position: absolute; width: 2px; height: 2px; border-radius: 50%;
+  background: transparent;
+}
+.atmo-particles::before {
+  box-shadow:
+    12vw 18vh 0 rgba(255,255,255,0.3), 28vw 9vh 0 rgba(167,139,250,0.5),
+    44vw 24vh 0 rgba(255,255,255,0.2), 61vw 12vh 0 rgba(255,255,255,0.34),
+    76vw 30vh 0 rgba(167,139,250,0.45), 88vw 16vh 0 rgba(255,255,255,0.26),
+    18vw 38vh 0 rgba(167,139,250,0.4), 68vw 42vh 0 rgba(255,255,255,0.18),
+    93vw 44vh 0 rgba(167,139,250,0.32), 36vw 6vh 0 rgba(255,255,255,0.22);
+  animation: drift-a 15s ease-in-out infinite alternate;
+}
+.atmo-particles::after {
+  box-shadow:
+    8vw 52vh 0 rgba(167,139,250,0.28), 24vw 60vh 0 rgba(255,255,255,0.16),
+    52vw 55vh 0 rgba(167,139,250,0.3), 71vw 62vh 0 rgba(255,255,255,0.2),
+    84vw 55vh 0 rgba(167,139,250,0.26), 47vw 40vh 0 rgba(255,255,255,0.14);
+  animation: drift-b 19s ease-in-out infinite alternate;
+}
+@keyframes drift-a { to { transform: translateY(-14px); } }
+@keyframes drift-b { to { transform: translateY(-8px); } }
+/* scrim keeps the headline crisp over the globe */
+.hero-scrim {
+  position: absolute; inset: 0;
+  background: radial-gradient(58% 42% at 50% 32%, rgba(6, 6, 9, 0.6), rgba(6, 6, 9, 0) 72%);
+}
+.atmo-grain {
+  position: absolute; inset: 0; opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+.atmo-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(130% 100% at 50% 42%, transparent 50%, rgba(4, 4, 7, 0.6) 100%);
+}
+
+/* hero load-in */
+.lift { opacity: 0; transform: translateY(26px); animation: lift-in 1s var(--ease) forwards; animation-delay: var(--d, 0s); }
+@keyframes lift-in { to { opacity: 1; transform: none; } }
+
+/* ---------- shared instrument panel ---------- */
+.panel {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-raise) 100%);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.panel-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.8rem 1.15rem; border-bottom: 1px solid var(--line);
+}
+.panel-bar .traffic { display: flex; gap: 5px; }
+.panel-bar .traffic i { width: 7px; height: 7px; border-radius: 50%; background: var(--line-strong); }
+.badge-live {
+  font-family: var(--font-mono); font-size: 0.5625rem; letter-spacing: 0.2em;
+  color: var(--green); border: 1px solid rgba(69,217,131,0.35);
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+}
+.panel-body { padding: 1.4rem 1.25rem 1.5rem; }
+
+/* pipeline svg inside hero panel */
+.flow-line { stroke-dasharray: 3 6; animation: flow-march 1.5s linear infinite; }
+@keyframes flow-march { to { stroke-dashoffset: -9; } }
+
+/* ---------- our infrastructure (centered diagram) ---------- */
+.plat { overflow: hidden; }
+.plat-head { display: grid; gap: 1.8rem; }
+@media (min-width: 900px) { .plat-head { grid-template-columns: 1fr 1fr; align-items: start; } }
+.plat-head h2 .hl { color: var(--violet-bright); }
+.plat-head .lede { font-size: 1.0313rem; line-height: 1.75; color: var(--text-dim); max-width: 33rem; }
+@media (min-width: 900px) { .plat-head .lede { justify-self: end; padding-top: 0.5rem; } }
+.plat-rule { margin-top: 3.2rem; height: 1px; background: var(--line); }
+
+.diagram { position: relative; margin-top: 4.5rem; }
+.diagram-bg { position: absolute; inset: -3rem -18vw -2rem; pointer-events: none; }
+.diagram-bg .streams { position: absolute; inset: 0; width: 100%; height: 100%; }
+.diagram-bg .glow-line {
+  position: absolute; left: 0; right: 0; top: -2rem; height: 16rem;
+  background: radial-gradient(46% 42% at 50% 46%, rgba(170, 178, 255, 0.13), rgba(139, 124, 246, 0.04) 55%, transparent 75%);
+}
+.stream { stroke-linecap: round; animation: stream-flow var(--sd, 7s) linear infinite; animation-delay: var(--so, 0s); }
+@keyframes stream-flow { to { stroke-dashoffset: -96; } }
+
+.diagram-inner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.d-logo {
+  width: 62px; height: 62px; border-radius: var(--radius-card);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.85rem; color: #ffffff;
+  background: linear-gradient(145deg, #8b7cf6 0%, #5f4bd8 100%);
+  box-shadow: 0 0 70px rgba(139, 124, 246, 0.5), 0 14px 34px -12px rgba(0, 0, 0, 0.65);
+}
+.d-drop {
+  width: 1px; height: 2.6rem;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.28) 55%, transparent 0);
+  background-size: 1px 7px;
+}
+.d-caption { font-weight: 600; font-size: 1.0625rem; color: var(--text); letter-spacing: 0.01em; }
+.d-pills { margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.9rem; }
+.d-pill {
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-body); font-weight: 500;
+  font-size: 0.9375rem; color: var(--text);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease);
+}
+.d-pill:hover { border-color: rgba(139, 124, 246, 0.55); background: rgba(139, 124, 246, 0.07); transform: translateY(-2px); }
+.d-elbow { width: min(640px, 88vw); height: 46px; margin-top: 1.3rem; }
+.d-elbow + .d-caption { margin-top: 1.3rem; }
+.d-bracket { margin-top: 1.3rem; }
+.d-cards {
+  margin-top: 0; width: min(640px, 100%);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+.d-card {
+  border: 1px solid var(--line); border-radius: var(--radius-card);
+  background: rgba(13, 13, 20, 0.78); backdrop-filter: blur(4px);
+  padding: 1.6rem 1.3rem;
+  transition: border-color 0.3s ease, transform 0.3s var(--ease);
+}
+.d-card:hover { border-color: rgba(139, 124, 246, 0.45); transform: translateY(-3px); }
+.d-card h3 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 1.2rem; color: var(--text);
+}
+.d-card p { margin-top: 0.55rem; font-size: 0.8125rem; line-height: 1.6; color: var(--text-dim); }
+@media (max-width: 700px) {
+  .d-elbow, .d-bracket { display: none; }
+  .d-cards { grid-template-columns: 1fr; margin-top: 1.4rem; }
+  .d-caption + .d-cards { margin-top: 1.4rem; }
+  .d-pills + .d-caption { margin-top: 1.6rem; }
+}
+
+/* ---------- how it works (expanding accordion cards) ---------- */
+.hiw { background: var(--bg-raise); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.acc-row { margin-top: 4.5rem; display: flex; flex-direction: column; gap: 1rem; }
+@media (min-width: 900px) { .acc-row { flex-direction: row; align-items: stretch; } }
+.acc-card {
+  --ac: var(--violet);
+  position: relative; overflow: hidden; cursor: pointer;
+  border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface);
+  transition: flex 0.65s var(--ease), border-color 0.45s ease, background 0.45s ease;
+  outline: none;
+}
+/* per-card accent glow inside the card (restrained) */
+.acc-card::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(90% 55% at 22% 6%, color-mix(in srgb, var(--ac) 15%, transparent), transparent 62%);
+  transition: opacity 0.5s ease;
+}
+.acc-card:hover::before, .acc-card.open::before { opacity: 1; }
+.acc-card:focus-visible { border-color: var(--ac); }
+@media (min-width: 900px) {
+  .acc-card { flex: 1; min-width: 0; min-height: 33rem; }
+  .acc-card:first-child:not(.open) { flex: 1.35; }
+  .acc-card.open { flex: 3.4; }
+}
+.acc-card:hover { border-color: color-mix(in srgb, var(--ac) 45%, var(--line)); }
+.acc-card.open { border-color: color-mix(in srgb, var(--ac) 55%, var(--line-strong)); background: var(--surface-2); }
+
+/* collapsed state — icon top-left, title anchored lower */
+.acc-collapsed {
+  position: absolute; inset: 0; z-index: 1; padding: 1.5rem 1.4rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  opacity: 1; transition: opacity 0.3s ease;
+}
+.acc-card.open .acc-collapsed { opacity: 0; pointer-events: none; }
+.acc-collapsed .name {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--text);
+}
+
+/* icon chip (shared) — adopts each card's accent */
+.icon-chip {
+  width: 42px; height: 42px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; flex: none;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line);
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+.icon-chip svg { width: 20px; height: 20px; stroke: var(--ac, var(--violet-bright)); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.acc-card:hover .icon-chip, .acc-card.open .icon-chip {
+  border-color: color-mix(in srgb, var(--ac) 42%, var(--line));
+  background: color-mix(in srgb, var(--ac) 10%, transparent);
+}
+
+/* expanded state */
+.acc-expanded { position: relative; z-index: 1; opacity: 0; transition: opacity 0.35s ease; display: flex; flex-direction: column; height: 100%; }
+.acc-card.open .acc-expanded { opacity: 1; transition-delay: 0.22s; }
+.acc-visual { position: relative; height: 12.5rem; flex: none; overflow: hidden; }
+.acc-visual svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  mask-image: linear-gradient(180deg, black 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 55%, transparent 100%);
+}
+.acc-content { padding: 1.5rem 1.9rem 1.9rem; display: flex; flex-direction: column; flex: 1; min-width: 17rem; }
+.acc-content .acc-text { margin-top: auto; max-width: 27rem; }
+.acc-content h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.55rem, 2.3vw, 2.1rem); line-height: 1.12; letter-spacing: -0.015em; }
+.acc-content .tagline { margin-top: 0.55rem; font-family: var(--font-body); font-weight: 500; font-size: 0.9688rem; color: var(--ac); }
+.acc-content .body { margin-top: 0.95rem; font-size: 0.9063rem; line-height: 1.7; color: var(--text-dim); }
+@media (max-width: 899px) {
+  .acc-card { cursor: default; }
+  .acc-card::before { opacity: 1; }
+  .acc-collapsed { display: none; }
+  .acc-expanded { opacity: 1; }
+  .acc-visual { height: 9rem; }
+  .acc-content { padding-top: 1.2rem; }
+  .acc-content .acc-text { margin-top: 1.2rem; }
+}
+
+/* ---------- domains ---------- */
+/* Per-domain accent: registered custom property so the color itself animates.
+   The whole section adapts (tabs, indicator, panel glow) over ~550ms. */
+@property --dmc {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #8b7cf6;
+}
+#domains { --dmc: #8b7cf6; transition: --dmc 0.55s var(--ease); }
+.domains-grid { margin-top: 4.5rem; display: grid; gap: 2.5rem; }
+@media (min-width: 1024px) { .domains-grid { grid-template-columns: 4.5fr 7.5fr; gap: 4rem; } }
+.domain-tabs { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.domain-tab {
+  position: relative;
+  display: flex; align-items: baseline; gap: 1.1rem; text-align: left;
+  padding: 1.35rem 0.4rem; border-bottom: 1px solid var(--line);
+  transition: padding 0.3s var(--ease), background 0.3s ease;
+}
+.domain-tab::before {
+  content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 2px;
+  border-radius: 2px; background: var(--dmc);
+  opacity: 0; transform: scaleY(0.4);
+  transition: opacity 0.45s ease, transform 0.45s var(--ease);
+}
+.domain-tab.active::before { opacity: 1; transform: scaleY(1); }
+.domain-tab:hover { padding-left: 0.9rem; }
+.domain-tab.active { padding-left: 0.9rem; }
+.domain-tab .idx { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-faint); transition: color 0.45s ease; }
+.domain-tab.active .idx { color: var(--dmc); }
+.domain-tab .dt-name { font-family: var(--font-display); font-weight: 500; font-size: 1.45rem; transition: color 0.45s ease; }
+.domain-tab.active .dt-name { color: var(--dmc); }
+.domain-tab .dt-claim { display: block; margin-top: 0.25rem; font-family: var(--font-body); font-size: 0.8125rem; letter-spacing: 0; color: var(--text-faint); transition: color 0.45s ease; }
+.domain-tab.active .dt-claim { color: color-mix(in srgb, var(--dmc) 75%, var(--text-dim)); }
+.domain-panel {
+  position: relative; overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--dmc) 26%, rgba(255, 255, 255, 0.07));
+  border-radius: var(--radius-card); background: var(--surface);
+  padding: 2.4rem 2.5rem; min-height: 26rem;
+  box-shadow: 0 30px 90px -48px color-mix(in srgb, var(--dmc) 60%, transparent);
+  transition: border-color 0.55s ease, box-shadow 0.55s ease;
+}
+.domain-panel::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(75% 55% at 88% -5%, color-mix(in srgb, var(--dmc) 11%, transparent), transparent 62%),
+    radial-gradient(55% 45% at -5% 105%, color-mix(in srgb, var(--dmc) 6%, transparent), transparent 58%);
+}
+.domain-panel .dp-inner { position: relative; transition: opacity 0.25s ease, transform 0.25s var(--ease); }
+.domain-panel .dp-inner.out { opacity: 0; transform: translateY(8px); }
+.dp-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+.dp-head h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.9rem; }
+.dp-chips { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.dp-chips span {
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.35rem 0.85rem; color: var(--text-dim);
+}
+.dp-fields { margin-top: 1.9rem; display: grid; gap: 1.4rem; }
+@media (min-width: 640px) { .dp-fields { grid-template-columns: 1fr 1fr; } }
+.dp-field { border-top: 1px solid var(--line); padding-top: 1rem; }
+.dp-field .fl { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0; color: var(--dmc); transition: color 0.55s ease; }
+.dp-field p { margin-top: 0.55rem; font-size: 0.875rem; color: var(--text-dim); }
+.dp-outcome { margin-top: 1.9rem; border-top: 1px solid var(--line); padding-top: 1.3rem; }
+.dp-outcome p { margin-top: 0.55rem; font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; line-height: 1.4; color: var(--text); }
+
+/* ---------- proof (stats) ---------- */
+.h-section .hl { color: var(--violet-bright); }
+.proof-grid { display: grid; gap: 4rem; }
+@media (min-width: 1024px) { .proof-grid { grid-template-columns: 4fr 8fr; gap: 5.5rem; } }
+
+/* left rail: headline block top, callout anchored bottom */
+.proof-left { display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; }
+.proof-title {
+  margin-top: 1.8rem;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(2.1rem, 3.4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.02em;
+}
+.proof-title .hl { color: var(--violet-bright); }
+.proof-list { margin-top: 2.4rem; list-style: none; display: flex; flex-direction: column; gap: 1.05rem; }
+.proof-list li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.9688rem; color: var(--text-dim); transition: color 0.3s ease; }
+.proof-list li:hover { color: var(--text); }
+.proof-list svg { width: 17px; height: 17px; flex: none; stroke: var(--violet-bright); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.proof-callout { border-top: 1px solid var(--line); padding-top: 1.5rem; max-width: 21rem; }
+.proof-callout .co-label { font-weight: 600; font-size: 0.9063rem; color: var(--text); }
+.proof-callout .co-label .diamond { color: var(--violet-bright); font-size: 0.7rem; margin-right: 0.3rem; }
+.proof-callout .co-body { margin-top: 0.6rem; font-size: 0.8438rem; line-height: 1.7; color: var(--text-dim); }
+
+/* right: editorial paragraph, grid lowered beneath it */
+.proof-lede {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem); line-height: 1.6;
+  color: var(--text); font-weight: 400; max-width: 42rem;
+}
+@media (min-width: 1024px) { .proof-right { padding-top: 3rem; } }
+.stat-grid { margin-top: 4rem; display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
+.stat-card {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 10.5rem;
+  border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface);
+  padding: 1.7rem 1.6rem;
+  transition: border-color 0.45s ease, transform 0.35s var(--ease),
+    background 0.45s ease, box-shadow 0.45s ease;
+}
+@media (min-width: 1024px) { .stat-card { min-height: 11.5rem; } }
+.stat-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(75% 65% at 85% -8%, rgba(139, 124, 246, 0.16), transparent 62%);
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.stat-card:hover {
+  border-color: rgba(139, 124, 246, 0.5); background: var(--surface-2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 55px -32px rgba(139, 124, 246, 0.55);
+}
+.stat-card:hover::after { opacity: 1; }
+.stat-card .num {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(2.4rem, 3vw, 3.6rem); line-height: 1;
+  letter-spacing: -0.025em;
+  transition: color 0.45s ease;
+}
+.stat-card:hover .num { color: #cfc6ff; }
+.stat-card .foot { position: relative; padding-top: 1.6rem; }
+.stat-card .lbl { font-weight: 600; font-size: 0.9375rem; color: var(--text); }
+.stat-card .txt { margin-top: 0.3rem; font-size: 0.8125rem; line-height: 1.55; color: var(--text-dim); }
+
+/* ---------- cta ---------- */
+.cta {
+  position: relative; overflow: hidden;
+  text-align: center;
+  padding-top: 9rem; padding-bottom: 10rem;
+}
+@media (min-width: 768px) { .cta { padding-top: 12rem; padding-bottom: 13rem; } }
+
+/* ambient atmosphere */
+.cta-atmo { position: absolute; inset: 0; pointer-events: none; }
+.cta-atmo .glow-a,
+.cta-atmo .glow-b,
+.cta-atmo .glow-c { position: absolute; border-radius: 50%; filter: blur(60px); }
+.cta-atmo .glow-a {
+  width: 62rem; height: 34rem; left: 50%; top: 58%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(111, 91, 238, 0.16), transparent 70%);
+  animation: cta-breathe 9s ease-in-out infinite;
+}
+.cta-atmo .glow-b {
+  width: 30rem; height: 22rem; left: 12%; top: 18%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(139, 124, 246, 0.09), transparent 70%);
+  animation: cta-drift-a 16s ease-in-out infinite;
+}
+.cta-atmo .glow-c {
+  width: 26rem; height: 20rem; right: 10%; bottom: 8%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(85, 214, 232, 0.06), transparent 70%);
+  animation: cta-drift-b 19s ease-in-out infinite;
+}
+.cta-atmo .horizon {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: min(72rem, 96vw); height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 124, 246, 0.55), transparent);
+}
+.cta-atmo .horizon::after {
+  content: ""; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 60%; height: 8rem;
+  background: radial-gradient(60% 100% at 50% 100%, rgba(111, 91, 238, 0.18), transparent 72%);
+}
+@keyframes cta-breathe {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+}
+@keyframes cta-drift-a {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(3.5rem, 2rem); }
+}
+@keyframes cta-drift-b {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-3rem, -2.5rem); }
+}
+
+.cta-inner { position: relative; }
+.cta .cta-eyebrow { display: flex; justify-content: center; }
+.cta-title {
+  margin: 1.5rem auto 0; max-width: 52rem;
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+  line-height: 1.06; letter-spacing: -0.025em;
+}
+.cta-title .hl { color: var(--violet-bright); }
+.cta .body-lg { margin: 1.75rem auto 0; max-width: 40rem; }
+.cta-actions {
+  margin-top: 3rem; display: flex; flex-wrap: wrap;
+  justify-content: center; align-items: center; gap: 1rem;
+}
+.cta-actions .btn { padding: 0.8rem 1.5rem; font-size: 1rem; }
+
+/* ---------- cta ecosystem artwork ---------- */
+.cta-art {
+  position: relative;
+  margin: 8rem auto 0;
+  max-width: 72rem;
+  height: clamp(400px, 48vh, 540px);
+  /* fade the top so the artwork blends into the section background */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 100%);
+}
+/* contained: never bleed upward into the content above */
+.art-bg { position: absolute; inset: 0 -3% -6% -3%; pointer-events: none; }
+.art-bg::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(52% 62% at 50% 52%, rgba(111, 91, 238, 0.15), transparent 70%);
+}
+.art-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(58% 68% at 50% 50%, #000 25%, transparent 74%);
+          mask-image: radial-gradient(58% 68% at 50% 50%, #000 25%, transparent 74%);
+}
+.art-links { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.art-links path {
+  fill: none; stroke: rgba(139, 124, 246, 0.28); stroke-width: 1;
+  stroke-dasharray: 4 7;
+  animation: link-flow 3s linear infinite;
+  transition: stroke 0.4s var(--ease), stroke-width 0.4s var(--ease);
+}
+.art-links path.lit {
+  stroke: rgba(167, 139, 250, 0.95); stroke-width: 1.4;
+  filter: drop-shadow(0 0 5px rgba(139, 124, 246, 0.7));
+}
+@keyframes link-flow { to { stroke-dashoffset: -22; } }
+
+/* central node */
+.art-core {
+  position: absolute; left: 50%; top: 50%;
+  width: 190px; height: 190px;
+  transform: translate(-50%, -50%);
+  display: grid; place-items: center;
+}
+.art-core .halo {
+  position: absolute; inset: -80%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(139, 124, 246, 0.22), transparent 65%);
+  animation: cta-breathe 7s ease-in-out infinite;
+  border-radius: 50%;
+}
+.art-core .ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    transparent 0%, rgba(167, 139, 250, 0.9) 14%, transparent 32%,
+    transparent 55%, rgba(85, 214, 232, 0.5) 68%, transparent 84%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  animation: ring-spin 12s linear infinite;
+}
+.art-core .ring2 {
+  position: absolute; inset: 20px; border-radius: 50%;
+  border: 1px dashed rgba(139, 124, 246, 0.3);
+  animation: ring-spin 30s linear infinite reverse;
+}
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+.art-core .p {
+  position: absolute; left: 50%; top: 50%;
+  width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%;
+  background: var(--violet-bright); opacity: 0.75;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.9);
+  animation: orbit var(--t, 12s) linear infinite;
+}
+@keyframes orbit {
+  from { transform: rotate(var(--a, 0deg)) translateX(var(--r, 95px)); }
+  to   { transform: rotate(calc(var(--a, 0deg) + 360deg)) translateX(var(--r, 95px)); }
+}
+.art-core .orb {
+  position: relative; width: 116px; height: 116px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: radial-gradient(120% 120% at 32% 26%,
+    rgba(167, 139, 250, 0.55), rgba(111, 91, 238, 0.24) 42%, rgba(10, 10, 16, 0.92) 78%);
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  box-shadow:
+    0 0 40px rgba(111, 91, 238, 0.45),
+    0 0 110px rgba(111, 91, 238, 0.25),
+    inset 0 0 32px rgba(139, 124, 246, 0.35);
+}
+.art-core .orb .mark {
+  font-family: var(--font-display); font-weight: 700; font-size: 2.5rem;
+  color: #fff; text-shadow: 0 0 26px rgba(167, 139, 250, 0.95);
+}
+
+/* floating cards */
+.art-cards { position: absolute; inset: 0; }
+.art-card {
+  position: absolute; left: var(--cx); top: var(--cy);
+  animation: card-float 7s ease-in-out infinite;
+  animation-delay: var(--fd, 0s);
+  opacity: 0;
+}
+.cta-art.in .art-card {
+  opacity: 1;
+  transition: opacity 0.7s var(--ease);
+  transition-delay: calc(0.4s + var(--i, 0) * 0.09s);
+}
+@keyframes card-float {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, calc(-50% - 9px)); }
+}
+.art-card .inner {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.8rem 1.1rem; white-space: nowrap;
+  background: rgba(15, 15, 21, 0.85);
+  border: 1px solid var(--line-strong); border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 16px 44px -20px rgba(0, 0, 0, 0.85);
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.art-card .dot {
+  width: 7px; height: 7px; border-radius: 50%; flex: none;
+  background: var(--violet-bright);
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.85);
+}
+.art-card .name { font-size: 0.8438rem; font-weight: 500; color: var(--text); letter-spacing: 0.02em; }
+.art-card:hover .inner {
+  transform: translateY(-4px);
+  border-color: rgba(139, 124, 246, 0.6);
+  box-shadow: 0 20px 52px -20px rgba(139, 124, 246, 0.55);
+}
+
+/* artwork — mobile: stack cards below the node */
+@media (max-width: 899px) {
+  .cta-art { height: auto; margin-top: 3.5rem; padding: 5.5rem 0 1rem; }
+  .art-links { display: none; }
+  .art-core { position: relative; left: auto; top: auto; transform: none; margin: 0 auto; }
+  .art-cards {
+    position: relative; inset: auto; margin-top: 3rem;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem;
+    max-width: 30rem; margin-left: auto; margin-right: auto;
+  }
+  .art-card { position: static; animation: none; }
+  .art-card .inner { justify-content: center; white-space: normal; }
+}
+
+/* ---------- footer ---------- */
+footer { border-top: 1px solid var(--line); padding: 3rem 0; }
+.foot-inner { display: flex; flex-direction: column; gap: 1.8rem; }
+@media (min-width: 768px) { .foot-inner { flex-direction: row; align-items: flex-end; justify-content: space-between; } }
+.foot-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.foot-links a { font-family: var(--font-body); font-size: 0.875rem; letter-spacing: 0; color: var(--text-dim); transition: color 0.2s ease; }
+.foot-links a:hover { color: var(--violet-bright); }
+
+/* ---------- reveal motion ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .lift { opacity: 1; transform: none; animation: none; }
+  .hero-stat { opacity: 1; animation: none; }
+  .flow-line, .atmo-particles::before, .atmo-particles::after,
+  .globe-glow, .orbit-1, .orbit-2 { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="page nav-inner">
+    <a href="#top" class="nav-logo">
+      <span class="wordmark">2une.ai</span>
+      <span class="byline">A PhysicsWallah company</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#process">How&nbsp;it&nbsp;works</a>
+      <a href="#domains">Domains</a>
+      <a href="#why">Why&nbsp;2une</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="mailto:sandeep.varma@pw.live?subject=Talk%20to%202une.ai">Talk to us <span class="arr">→</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mm-backdrop" id="mmBackdrop" aria-hidden="true"></div>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav class="mm-links">
+    <a href="#platform">Platform</a>
+    <a href="#process">How it works</a>
+    <a href="#domains">Domains</a>
+    <a href="#why">Why 2une</a>
+  </nav>
+  <a class="btn btn-primary mm-cta" href="mailto:sandeep.varma@pw.live?subject=Talk%20to%202une.ai">Talk to our team <span class="arr">→</span></a>
+</div>
+
+<main id="top">
+
+<!-- ================= 1 · HERO ================= -->
+<section class="hero">
+  <div class="hero-atmo" aria-hidden="true">
+    <div class="atmo-base"></div>
+    <div class="globe-glow"></div>
+    <div class="orbit orbit-1"></div>
+    <div class="orbit orbit-2"></div>
+    <canvas id="globe" class="globe-canvas"></canvas>
+    <div class="atmo-particles"></div>
+    <div class="atmo-grid"></div>
+    <div class="hero-scrim"></div>
+    <div class="atmo-grain"></div>
+    <div class="atmo-vignette"></div>
+  </div>
+
+  <div class="page hero-body">
+    <div class="hero-center">
+      <div class="hero-chip lift">
+        <span class="diamond">◆</span>
+        <span class="txt">Infrastructure for Frontier AI</span>
+      </div>
+
+      <h1 class="hero-title lift" style="--d:.12s">
+        Build AI with<br />
+        <span class="hl">Human Intelligence</span>
+      </h1>
+
+      <p class="hero-sub lift" style="--d:.24s">
+        Train, evaluate, and align AI with expert human intelligence, helping
+        your models perform reliably across languages, cultures, and real-world
+        scenarios.
+      </p>
+
+      <div class="hero-ctas lift" style="--d:.36s">
+        <a class="btn btn-primary btn-glow" href="mailto:sandeep.varma@pw.live?subject=Talk%20to%202une.ai">Talk to our team <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Early trust: evidence band -->
+  <div class="hero-stats" aria-label="Scale and evidence">
+    <div class="page stats-row">
+      <div class="hero-stat" style="--si:0"><p class="num" data-count="50" data-suffix="M+">50M+</p><p class="lbl">Learner &amp; Talent Network</p></div>
+      <div class="hero-stat" style="--si:1"><p class="num" data-count="200" data-suffix="K+">200K+</p><p class="lbl">Expert Contributors</p></div>
+      <div class="hero-stat" style="--si:2"><p class="num" data-count="10" data-suffix=",000+">10,000+</p><p class="lbl">Teachers &amp; Professors</p></div>
+      <div class="hero-stat" style="--si:3"><p class="num" data-count="8" data-suffix="M+">8M+</p><p class="lbl">STEM Q&amp;As</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2 · OUR INFRASTRUCTURE ================= -->
+<section id="platform" class="plat">
+  <div class="page">
+    <div class="plat-head">
+      <h2 class="h-section reveal">
+        Our<br /><span class="hl">Infrastructure</span>
+      </h2>
+      <p class="lede reveal" style="--d:.1s">
+        2une combines expert talent, data operations, and quality systems into
+        one integrated infrastructure for frontier AI development.
+      </p>
+    </div>
+    <div class="plat-rule reveal" style="--d:.15s"></div>
+
+    <div class="diagram">
+      <!-- converging particle field -->
+      <div class="diagram-bg" aria-hidden="true">
+        <div class="glow-line"></div>
+        <svg class="streams" id="streams" viewBox="0 0 1200 640" preserveAspectRatio="none"></svg>
+      </div>
+
+      <div class="diagram-inner">
+        <div class="d-logo reveal" style="--d:.1s">2</div>
+        <div class="d-drop reveal" style="--d:.18s"></div>
+        <p class="d-caption reveal" style="--d:.26s">2une Infrastructure</p>
+
+        <div class="d-pills reveal" style="--d:.34s">
+          <span class="d-pill">Human Experts</span>
+          <span class="d-pill">Data Infrastructure</span>
+          <span class="d-pill">Quality Systems</span>
+        </div>
+
+        <svg class="d-elbow reveal" style="--d:.42s" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M100 0 V20 M300 0 V20 M500 0 V20 M100 20 H500 M300 20 V46" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+        </svg>
+
+        <p class="d-caption reveal" style="--d:.5s">For frontier AI development</p>
+
+        <svg class="d-elbow d-bracket reveal" style="--d:.58s" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M300 0 V16 M100 16 H500 M100 16 V46 M300 16 V46 M500 16 V46" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+        </svg>
+
+        <div class="d-cards">
+          <div class="d-card reveal" style="--d:.66s">
+            <h3>Create</h3>
+            <p>Expert-generated datasets, reasoning traces, and multimodal tasks.</p>
+          </div>
+          <div class="d-card reveal" style="--d:.74s">
+            <h3>Evaluate</h3>
+            <p>Model evaluation, factuality review, and benchmark creation.</p>
+          </div>
+          <div class="d-card reveal" style="--d:.82s">
+            <h3>Align</h3>
+            <p>RLHF, preference ranking, red teaming, and safety review.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3 · HOW IT WORKS (merged) ================= -->
+<section id="process" class="hiw">
+  <div class="page">
+    <div class="hero-chip reveal">
+      <span class="diamond">◆</span>
+      <span class="txt">How it works</span>
+    </div>
+    <div class="plat-head" style="margin-top:1.8rem">
+      <h2 class="h-section reveal" style="--d:.08s">
+        From experts to<br /><span class="hl">model-ready AI.</span>
+      </h2>
+      <p class="lede reveal" style="--d:.16s">
+        Every project follows a structured workflow—from sourcing domain
+        experts and creating high-quality datasets to evaluation and
+        delivery—so every output is reliable, traceable, and ready for
+        production.
+      </p>
+    </div>
+
+    <div class="acc-row reveal" id="acc-row" style="--d:.2s"></div>
+  </div>
+</section>
+
+<!-- ================= 6 · DOMAINS ================= -->
+<section id="domains">
+  <div class="page">
+    <div class="hero-chip reveal">
+      <span class="diamond">◆</span>
+      <span class="txt">Domain expertise</span>
+    </div>
+    <div class="plat-head" style="margin-top:1.8rem">
+      <h2 class="h-section reveal" style="--d:.08s">
+        Specialized expertise<br /><span class="hl">for frontier AI.</span>
+      </h2>
+      <p class="lede reveal" style="--d:.16s">
+        2une brings together domain specialists, high-quality datasets, and
+        structured evaluation across four areas where expert judgment has the
+        greatest impact on model performance.
+      </p>
+    </div>
+
+    <div class="domains-grid reveal">
+      <div class="domain-tabs" role="tablist" aria-label="Domains"></div>
+      <div class="domain-panel" id="domain-panel">
+        <div class="dp-inner" id="dp-inner"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 · PROOF (editorial) ================= -->
+<section id="why">
+  <div class="page proof-grid">
+
+    <!-- Left rail: headline · differentiators · PW callout -->
+    <div class="proof-left">
+      <div>
+        <div class="hero-chip reveal">
+          <span class="diamond">◆</span>
+          <span class="txt">Why 2une</span>
+        </div>
+        <h2 class="proof-title reveal" style="--d:.08s">
+          Built on one of the world's largest
+          <span class="hl">learning ecosystems.</span>
+        </h2>
+
+        <ul class="proof-list reveal" style="--d:.16s">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zm-9 9l9 5 9-5"/></svg>
+            <span>PhysicsWallah Ecosystem</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M16 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4 21c0-3.3 3.6-5 8-5s8 1.7 8 5"/></svg>
+            <span>Expert Human Network</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zm0 0v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+            <span>Proprietary Data Assets</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M3 12h15m0 0l-4-4m4 4l-4 4M21 5v14"/></svg>
+            <span>End-to-End Execution</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="proof-callout reveal" style="--d:.24s">
+        <p class="co-label"><span class="diamond">◆</span> Backed by PhysicsWallah</p>
+        <p class="co-body">
+          India's largest education company — the ecosystem behind 2une's
+          expert network, data assets, and operational scale.
+        </p>
+      </div>
+    </div>
+
+    <!-- Right: editorial paragraph + airy stat grid -->
+    <div class="proof-right">
+      <p class="proof-lede reveal" style="--d:.1s">
+        2une combines PhysicsWallah's expert network, proprietary educational
+        assets, and operational scale to help frontier AI teams build,
+        evaluate, and align models with confidence.
+      </p>
+
+      <div class="stat-grid">
+        <div class="stat-card reveal">
+          <p class="num" data-count="50" data-suffix="M+">50M+</p>
+          <div class="foot">
+            <p class="lbl">Learners</p>
+            <p class="txt">The learning ecosystem powering frontier AI.</p>
+          </div>
+        </div>
+        <div class="stat-card reveal" style="--d:.07s">
+          <p class="num" data-count="200" data-suffix="K+">200K+</p>
+          <div class="foot">
+            <p class="lbl">Expert Contributors</p>
+            <p class="txt">IIT, MBBS, MBA, and PhD backgrounds.</p>
+          </div>
+        </div>
+        <div class="stat-card reveal" style="--d:.14s">
+          <p class="num" data-count="10" data-suffix=",000+">10,000+</p>
+          <div class="foot">
+            <p class="lbl">Educators</p>
+            <p class="txt">Active teachers and professors.</p>
+          </div>
+        </div>
+        <div class="stat-card reveal" style="--d:.21s">
+          <p class="num" data-count="500" data-suffix="+">500+</p>
+          <div class="foot">
+            <p class="lbl">Owned Studios</p>
+            <p class="txt">Speech and video data produced at source.</p>
+          </div>
+        </div>
+        <div class="stat-card reveal" style="--d:.28s">
+          <p class="num" data-count="4" data-suffix="M+">4M+</p>
+          <div class="foot">
+            <p class="lbl">Speech Hours</p>
+            <p class="txt">Studio-grade Indic voice corpus.</p>
+          </div>
+        </div>
+        <div class="stat-card reveal" style="--d:.35s">
+          <p class="num" data-count="22" data-suffix="+">22+</p>
+          <div class="foot">
+            <p class="lbl">Indic Languages</p>
+            <p class="txt">Native-speaker coverage across India.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8 · CTA ================= -->
+<section id="contact" class="cta">
+  <div class="cta-atmo" aria-hidden="true">
+    <div class="glow-a"></div>
+    <div class="glow-b"></div>
+    <div class="glow-c"></div>
+    <div class="horizon"></div>
+  </div>
+  <div class="page cta-inner">
+    <div class="cta-eyebrow reveal">
+      <span class="hero-chip"><span class="diamond">◆</span><span class="txt">Start the conversation</span></span>
+    </div>
+    <h2 class="cta-title reveal" style="--d:.08s">Build your next<br /><span class="hl">AI breakthrough</span></h2>
+    <p class="body-lg reveal" style="--d:.16s">
+      Whether you're creating training datasets, evaluating frontier models, or
+      scaling expert human intelligence, 2une helps you deliver reliable AI with
+      the right people, data, and quality systems.
+    </p>
+    <div class="cta-actions reveal" style="--d:.24s">
+      <a class="btn btn-primary" href="mailto:sandeep.varma@pw.live?subject=Talk%20to%202une.ai">Talk to our team <span class="arr">→</span></a>
+      <a class="btn btn-secondary" href="#platform">Explore our capabilities</a>
+    </div>
+
+    <!-- ecosystem artwork -->
+    <div class="cta-art reveal" id="ctaArt" style="--d:.32s">
+      <div class="art-bg" aria-hidden="true"></div>
+      <svg class="art-links" aria-hidden="true"></svg>
+      <div class="art-cards">
+        <div class="art-card" style="--cx:14%; --cy:20%; --fd:0s;    --i:0"><div class="inner"><span class="dot"></span><span class="name">Expert Network</span></div></div>
+        <div class="art-card" style="--cx:9%;  --cy:52%; --fd:-2.3s; --i:1"><div class="inner"><span class="dot"></span><span class="name">Data Assets</span></div></div>
+        <div class="art-card" style="--cx:19%; --cy:83%; --fd:-4.1s; --i:2"><div class="inner"><span class="dot"></span><span class="name">Human Evaluation</span></div></div>
+        <div class="art-card" style="--cx:86%; --cy:20%; --fd:-1.2s; --i:3"><div class="inner"><span class="dot"></span><span class="name">Quality Systems</span></div></div>
+        <div class="art-card" style="--cx:91%; --cy:52%; --fd:-3.4s; --i:4"><div class="inner"><span class="dot"></span><span class="name">Speech &amp; Language</span></div></div>
+        <div class="art-card" style="--cx:81%; --cy:83%; --fd:-5.2s; --i:5"><div class="inner"><span class="dot"></span><span class="name">Model-ready Delivery</span></div></div>
+      </div>
+      <div class="art-core" aria-hidden="true">
+        <div class="halo"></div>
+        <div class="ring"></div>
+        <div class="ring2"></div>
+        <span class="p" style="--a:0deg;   --r:96px;  --t:11s"></span>
+        <span class="p" style="--a:70deg;  --r:110px; --t:15s"></span>
+        <span class="p" style="--a:140deg; --r:88px;  --t:9s"></span>
+        <span class="p" style="--a:200deg; --r:118px; --t:17s"></span>
+        <span class="p" style="--a:265deg; --r:100px; --t:13s"></span>
+        <span class="p" style="--a:320deg; --r:126px; --t:20s"></span>
+        <div class="orb"><span class="mark">2</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="page foot-inner">
+    <div>
+      <p class="nav-logo"><span class="wordmark">2une.ai</span></p>
+      <p class="mono-label" style="margin-top:.6rem">AI Data &amp; Human Infrastructure · A PhysicsWallah company</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#platform">Platform</a>
+      <a href="#process">How it works</a>
+      <a href="#domains">Domains</a>
+      <a href="#why">Why 2une</a>
+      <a href="mailto:sandeep.varma@pw.live?subject=Talk%20to%202une.ai">Contact</a>
+    </nav>
+    <p class="mono-label">© <span id="year"></span> 2une.ai · BLR · DEL</p>
+  </div>
+</footer>
+
+<script>
+/* ============ nav scroll state ============ */
+const nav = document.getElementById("nav");
+addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 24), { passive: true });
+
+/* ============ mobile menu ============ */
+(function mobileMenu() {
+  const toggle = document.getElementById("navToggle");
+  const menu = document.getElementById("mobileMenu");
+  const backdrop = document.getElementById("mmBackdrop");
+  if (!toggle || !menu) return;
+  function setOpen(open) {
+    document.body.classList.toggle("menu-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menu.setAttribute("aria-hidden", String(!open));
+    backdrop.setAttribute("aria-hidden", String(!open));
+  }
+  toggle.addEventListener("click", () =>
+    setOpen(!document.body.classList.contains("menu-open")));
+  backdrop.addEventListener("click", () => setOpen(false));
+  menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+  addEventListener("resize", () => { if (innerWidth >= 900) setOpen(false); });
+})();
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ============ hero particle globe ============ */
+(function heroGlobe() {
+  const canvas = document.getElementById("globe");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  const small = matchMedia("(max-width: 640px)").matches;
+  const N = small ? 1500 : 2600;
+
+  // points distributed on a sphere via the golden-angle spiral
+  const pts = [];
+  const GA = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < N; i++) {
+    const y = 1 - (i / (N - 1)) * 2;
+    const r = Math.sqrt(Math.max(0, 1 - y * y));
+    const th = i * GA;
+    pts.push({ x: Math.cos(th) * r, y: y, z: Math.sin(th) * r, ph: Math.random() * 6.283 });
+  }
+
+  let W = 0, H = 0;
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  let rot = 0, mx = 0, my = 0, tmx = 0, tmy = 0;
+  addEventListener("mousemove", (e) => {
+    tmx = e.clientX / innerWidth - 0.5;
+    tmy = e.clientY / innerHeight - 0.5;
+  }, { passive: true });
+
+  function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+    if (!reduced) rot += 0.0016;
+    mx += (tmx - mx) * 0.04;
+    my += (tmy - my) * 0.04;
+
+    const cx = W / 2, cy = H / 2;
+    const R = Math.min(W, H) * 0.42;
+    const tiltX = -0.32 + my * 0.22;              // fixed tilt + gentle parallax
+    const yaw = rot + mx * 0.4;
+    const cT = Math.cos(tiltX), sT = Math.sin(tiltX);
+    const cY = Math.cos(yaw), sY = Math.sin(yaw);
+
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      // rotate around Y (yaw)
+      const x1 = p.x * cY - p.z * sY;
+      const z1 = p.x * sY + p.z * cY;
+      // tilt around X
+      const y2 = p.y * cT - z1 * sT;
+      const z2 = p.y * sT + z1 * cT;
+
+      const persp = 1 / (1.9 - z2 * 0.6);
+      const sx = cx + x1 * R * persp;
+      const sy = cy + y2 * R * persp;
+      const depth = (z2 + 1) / 2;                  // 0 back .. 1 front
+      const shimmer = reduced ? 1 : 0.72 + 0.28 * Math.sin(t * 0.001 + p.ph);
+      const alpha = (0.07 + depth * 0.4) * shimmer;
+      const size = (depth * 1.35 + 0.35) * persp;
+
+      ctx.beginPath();
+      ctx.fillStyle = depth > 0.86
+        ? "rgba(233,228,255," + alpha.toFixed(3) + ")"
+        : "rgba(150,132,246," + alpha.toFixed(3) + ")";
+      ctx.arc(sx, sy, size, 0, 6.283);
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  else addEventListener("resize", resize);
+  resize();
+  requestAnimationFrame(frame);
+})();
+
+/* ============ scroll reveals ============ */
+const revealIO = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".reveal").forEach((el) => revealIO.observe(el));
+
+/* ============ metric count-up ============ */
+function countUp(el) {
+  const target = parseFloat(el.dataset.count);
+  const suffix = el.dataset.suffix || "";
+  const dur = 1200, t0 = performance.now();
+  (function tick(t) {
+    const p = Math.min(1, (t - t0) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+const metricIO = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      if (!reduced) countUp(e.target);
+      metricIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll("[data-count]").forEach((el) => metricIO.observe(el));
+
+/* ============ converging particle streams (infrastructure diagram) ============ */
+(function buildStreams() {
+  const svg = document.getElementById("streams");
+  if (!svg) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const CX = 600, CY = 118, N = 15;
+  for (let side = 0; side < 2; side++) {
+    for (let i = 0; i < N; i++) {
+      const y = 8 + (624 / (N - 1)) * i;
+      const spread = Math.abs(y - CY) / 640; // farther lines are fainter
+      const x0 = side === 0 ? 0 : 1200;
+      const cx1 = side === 0 ? 260 : 940;
+      const cx2 = side === 0 ? 430 : 770;
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", `M ${x0} ${y} C ${cx1} ${y}, ${cx2} ${CY}, ${CX} ${CY}`);
+      p.setAttribute("fill", "none");
+      p.setAttribute("stroke", i % 3 === 2 ? "rgba(167,139,250,0.5)" : "rgba(205,210,255,0.42)");
+      p.setAttribute("stroke-width", "1.5");
+      p.setAttribute("stroke-dasharray", "0.5 7.5");
+      p.setAttribute("opacity", String(0.16 + (1 - spread) * 0.3));
+      p.classList.add("stream");
+      p.style.setProperty("--sd", (5.5 + Math.random() * 4).toFixed(2) + "s");
+      p.style.setProperty("--so", (-Math.random() * 8).toFixed(2) + "s");
+      svg.appendChild(p);
+    }
+  }
+  if (reduced) svg.querySelectorAll(".stream").forEach((s) => (s.style.animation = "none"));
+})();
+
+/* ============ how-it-works accordion ============ */
+const ACC = [
+  {
+    name: "Expert Human Network", tag: "High-cognition domain experts", accent: "#8b7cf6",
+    body: "Educators, doctors, engineers, linguists, and subject-matter experts providing annotation, evaluation, and expert review for frontier AI.",
+    icon: "M16 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4 21c0-3.3 3.6-5 8-5s8 1.7 8 5",
+  },
+  {
+    name: "Data Infrastructure", tag: "Proprietary, model-ready data", accent: "#5b8def",
+    body: "Reasoning traces, structured datasets, Indic voice, and multimodal assets collected with provenance from the source.",
+    icon: "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zm0 0v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
+  },
+  {
+    name: "Human Evaluation", tag: "Expert review at every stage", accent: "#55d6e8",
+    body: "Preference ranking, model evaluation, red-teaming, and rubric-based reviews that improve model performance and reliability.",
+    icon: "M12 5a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0-3v3m0 14v3M2 12h3m14 0h3",
+  },
+  {
+    name: "Quality Systems", tag: "Built for trust and traceability", accent: "#45d983",
+    body: "Gold sets, inter-annotator agreement, audit trails, and multi-stage quality checks built into every delivery.",
+    icon: "M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3zm-3 9l2 2 4-4",
+  },
+  {
+    name: "India-Scale Talent Cloud", tag: "Scale without compromise", accent: "#e2944a",
+    body: "A deployable network of trained contributors, enabling rapid execution without sacrificing quality or consistency.",
+    icon: "M12 3l9 5-9 5-9-5 9-5zm-9 9l9 5 9-5",
+  },
+  {
+    name: "End-to-End Execution", tag: "One partner. Zero handoffs.", accent: "#e56fa6",
+    body: "From task design and sourcing to annotation, QA, expert validation, and delivery, every stage is managed by 2une.",
+    icon: "M3 12h15m0 0l-4-4m4 4l-4 4M21 5v14",
+  },
+];
+
+const accRow = document.getElementById("acc-row");
+const iconSvg = (d) => '<span class="icon-chip"><svg viewBox="0 0 24 24"><path d="' + d + '"/></svg></span>';
+
+function drawWave(svg, seed, accent) {
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 600, H = 230, LINES = 24, PTS = 36;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+  for (let j = 0; j < LINES; j++) {
+    let d = "";
+    for (let k = 0; k <= PTS; k++) {
+      const x = (k / PTS) * W;
+      const y =
+        16 + j * 8 +
+        Math.sin(x * 0.0045 + seed * 1.7 + j * 0.22) * 26 * (0.3 + j / LINES) +
+        Math.cos(x * 0.002 + seed + j * 0.08) * 12;
+      d += (k === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", d);
+    p.setAttribute("fill", "none");
+    p.setAttribute("stroke", accent || "#a78bfa");
+    p.setAttribute("stroke-width", "1");
+    p.setAttribute("opacity", String(0.08 + (j / LINES) * 0.3));
+    svg.appendChild(p);
+  }
+}
+
+ACC.forEach((s, i) => {
+  const card = document.createElement("div");
+  card.className = "acc-card";
+  card.style.setProperty("--ac", s.accent);
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-expanded", "false");
+  card.setAttribute("aria-label", s.name);
+  card.innerHTML =
+    '<div class="acc-collapsed">' +
+    iconSvg(s.icon) +
+    '<p class="name">' + s.name + "</p>" +
+    "</div>" +
+    '<div class="acc-expanded">' +
+    '<div class="acc-visual"><svg aria-hidden="true"></svg></div>' +
+    '<div class="acc-content">' + iconSvg(s.icon) +
+    '<div class="acc-text">' +
+    "<h3>" + s.name + "</h3>" +
+    '<p class="tagline">' + s.tag + "</p>" +
+    '<p class="body">' + s.body + "</p>" +
+    "</div></div></div>";
+  accRow.appendChild(card);
+  drawWave(card.querySelector(".acc-visual svg"), i * 2.3 + 0.7, s.accent);
+});
+
+const accCards = accRow.querySelectorAll(".acc-card");
+function openAcc(i) {
+  accCards.forEach((c, j) => {
+    c.classList.toggle("open", j === i);
+    c.setAttribute("aria-expanded", j === i);
+  });
+}
+const isDesktop = () => matchMedia("(min-width: 900px)").matches;
+accCards.forEach((c, i) => {
+  c.addEventListener("mouseenter", () => { if (isDesktop()) openAcc(i); });
+  c.addEventListener("click", () => { if (isDesktop()) openAcc(i); });
+  c.addEventListener("keydown", (e) => {
+    if ((e.key === "Enter" || e.key === " ") && isDesktop()) { e.preventDefault(); openAcc(i); }
+  });
+});
+openAcc(0);
+
+/* ============ domains tabs ============ */
+const DOMAINS = [
+  {
+    name: "STEM & Education", claim: "Reasoning & Education", color: "#3cc48f",
+    use: ["Reasoning Datasets", "Solution Grading", "Benchmark Authoring"],
+    experts: "Olympiad-level problem setters, examiners, and educators across math, physics, and code.",
+    data: "8M+ solved Q&As with step-by-step reasoning, assessments, and misconception patterns.",
+    built: "Reasoning models, math and code fine-tuning, benchmark creation, and step-by-step evaluation.",
+  },
+  {
+    name: "Medical", claim: "Clinical AI", color: "#35bdb4",
+    use: ["Clinical Review", "Safety Evaluation", "Medical Annotation"],
+    experts: "Practicing doctors, MBBS/MD specialists, and clinical reviewers across disciplines.",
+    data: "Clinician-reviewed Q&A, diagnosis explanation traces, and health-safety evaluation sets.",
+    built: "Clinical reasoning models, medical safety evaluation, and regulated health AI applications.",
+  },
+  {
+    name: "Voice & Language", claim: "Indic Speech", color: "#8b7cf6",
+    use: ["Indic Speech", "Transcription", "Localization QA"],
+    experts: "Native speakers, linguists, and reviewers across 22+ Indic languages.",
+    data: "Studio-grade speech, multilingual datasets, and annotated audio collected through 500+ owned studios.",
+    built: "Automatic Speech Recognition (ASR), Text-to-Speech (TTS), multilingual language models, and voice AI applications.",
+  },
+  {
+    name: "Physical AI", claim: "Embodied AI", frontier: true, color: "#d3a55c",
+    use: ["Multimodal Capture", "Sensor Sync", "Embodied Evaluation"],
+    experts: "Managed field-collection teams capturing real human demonstrations on the ground in India.",
+    data: "Real-world, multi-sensor recordings of human activity and edge-case scenarios.",
+    built: "Vision-language models, robotics, and embodied AI grounded in real human demonstrations.",
+  },
+];
+const tabsEl = document.querySelector(".domain-tabs");
+const panelEl = document.getElementById("domain-panel");
+const innerEl = document.getElementById("dp-inner");
+let activeDomain = 0;
+
+DOMAINS.forEach((d, i) => {
+  const b = document.createElement("button");
+  b.className = "domain-tab" + (d.frontier ? " frontier" : "");
+  b.setAttribute("role", "tab");
+  b.innerHTML =
+    '<span class="idx">' + String(i + 1).padStart(2, "0") + "</span>" +
+    '<span><span class="dt-name">' + d.name + "</span>" +
+    '<span class="dt-claim">' + (d.frontier ? "→ " : "") + d.claim + "</span></span>";
+  b.addEventListener("click", () => selectDomain(i));
+  tabsEl.appendChild(b);
+});
+
+function renderDomain(d) {
+  innerEl.innerHTML =
+    '<div class="dp-head"><h3>' + d.name + "</h3>" +
+    (d.frontier ? '<span class="mono-label" style="color:var(--dmc)">Status: pilots open</span>' : "") +
+    "</div>" +
+    '<div class="dp-chips">' + d.use.map((u) => "<span>" + u + "</span>").join("") + "</div>" +
+    '<div class="dp-fields">' +
+    '<div class="dp-field"><span class="fl">Expert Network</span><p>' + d.experts + "</p></div>" +
+    '<div class="dp-field"><span class="fl">Data Assets</span><p>' + d.data + "</p></div>" +
+    '<div class="dp-field" style="grid-column:1/-1"><span class="fl">Built For</span><p>' + d.built + "</p></div>" +
+    "</div>";
+}
+const domainsSection = document.getElementById("domains");
+function selectDomain(i) {
+  activeDomain = i;
+  domainsSection.style.setProperty("--dmc", DOMAINS[i].color);
+  document.querySelectorAll(".domain-tab").forEach((t, j) => {
+    t.classList.toggle("active", j === i);
+    t.setAttribute("aria-selected", j === i);
+  });
+  innerEl.classList.add("out");
+  setTimeout(() => {
+    renderDomain(DOMAINS[i]);
+    panelEl.classList.toggle("frontier", !!DOMAINS[i].frontier);
+    innerEl.classList.remove("out");
+  }, reduced ? 0 : 220);
+}
+activeDomain = 2; // default: Voice & Language
+renderDomain(DOMAINS[2]);
+document.querySelectorAll(".domain-tab").forEach((t, j) => {
+  t.classList.toggle("active", j === 2);
+  t.setAttribute("aria-selected", j === 2);
+});
+
+/* ============ cta ecosystem artwork — connector lines ============ */
+(function ctaArtLinks() {
+  const art = document.getElementById("ctaArt");
+  if (!art) return;
+  const svg = art.querySelector(".art-links");
+  const core = art.querySelector(".art-core");
+  const cards = [...art.querySelectorAll(".art-card")];
+  const NS = "http://www.w3.org/2000/svg";
+
+  function draw() {
+    if (matchMedia("(max-width: 899px)").matches) { svg.innerHTML = ""; return; }
+    const r = art.getBoundingClientRect();
+    if (!r.width) return;
+    svg.setAttribute("viewBox", `0 0 ${r.width} ${r.height}`);
+    const c = core.getBoundingClientRect();
+    const cx = c.left + c.width / 2 - r.left;
+    const cy = c.top + c.height / 2 - r.top;
+    svg.innerHTML = "";
+    cards.forEach((card, i) => {
+      const b = card.getBoundingClientRect();
+      const x = b.left + b.width / 2 - r.left;
+      const y = b.top + b.height / 2 - r.top;
+      const mx = x + (cx - x) * 0.55;
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", `M ${x} ${y} Q ${mx} ${y} ${cx} ${cy}`);
+      p.style.animationDelay = (-i * 0.45).toFixed(2) + "s";
+      card._link = p;
+      svg.appendChild(p);
+    });
+    if (reduced) svg.querySelectorAll("path").forEach((p) => (p.style.animation = "none"));
+  }
+
+  // hover a card → light its connector back to the core
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => card._link && card._link.classList.add("lit"));
+    card.addEventListener("mouseleave", () => card._link && card._link.classList.remove("lit"));
+  });
+
+  requestAnimationFrame(draw);
+  addEventListener("load", draw);
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(draw, 120); });
+})();
+</script>
+</body>
+</html>
