@@ -120,7 +120,7 @@ section { position: relative; padding: 7rem 0; }
 }
 .btn .arr { transition: transform 0.2s var(--ease); }
 .btn:hover .arr { transform: translateX(3px); }
-.btn-primary { background: var(--violet); color: #fff; }
+.btn-primary { background: #6b54d6; color: #fff; }
 .btn-primary:hover { background: var(--violet-bright); }
 .btn-secondary { border: 1px solid var(--line-strong); color: var(--text); }
 .btn-secondary:hover { border-color: var(--violet); background: rgba(139, 124, 246, 0.06); }
@@ -999,9 +999,9 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       </h1>
 
       <p class="hero-sub lift" style="--d:.24s">
-        Train, evaluate, and align AI with expert human intelligence, helping
-        your models perform reliably across languages, cultures, and real-world
-        scenarios.
+        Train, evaluate, and align AI with model-ready data and human
+        infrastructure, helping your models perform reliably across languages,
+        cultures, and real-world scenarios.
       </p>
 
       <div class="hero-ctas lift" style="--d:.36s">
@@ -1057,15 +1057,15 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
         <div class="d-cards">
           <div class="d-card reveal" style="--d:.32s; --cc:#8b7cf6">
             <h3>Create</h3>
-            <p>Expert-generated datasets, reasoning traces, and multimodal tasks.</p>
+            <p>Task design, data collection, and annotation for model-ready data.</p>
           </div>
           <div class="d-card reveal" style="--d:.4s; --cc:#5b8def">
             <h3>Evaluate</h3>
-            <p>Model evaluation, factuality review, and benchmark creation.</p>
+            <p>Expert validation and model evaluation by domain specialists.</p>
           </div>
           <div class="d-card reveal" style="--d:.48s; --cc:#45d983">
             <h3>Align</h3>
-            <p>RLHF, preference ranking, red teaming, and safety review.</p>
+            <p>Quality assurance and expert validation for model-ready outputs.</p>
           </div>
         </div>
 
@@ -1087,7 +1087,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
     </div>
     <div class="plat-head" style="margin-top:1.8rem">
       <h2 class="h-section reveal" style="--d:.08s">
-        From experts to<br /><span class="hl">model-ready AI.</span>
+        From experts to<br /><span class="hl">model-ready AI</span>
       </h2>
       <p class="lede reveal" style="--d:.16s">
         Every project follows a structured workflow—from sourcing domain
@@ -1110,7 +1110,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
     </div>
     <div class="plat-head" style="margin-top:1.8rem">
       <h2 class="h-section reveal" style="--d:.08s">
-        Specialized expertise<br /><span class="hl">for frontier AI.</span>
+        Specialized expertise<br /><span class="hl">for frontier AI</span>
       </h2>
       <p class="lede reveal" style="--d:.16s">
         2une brings together domain specialists, high-quality datasets, and
@@ -1141,7 +1141,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
         </div>
         <h2 class="proof-title reveal" style="--d:.08s">
           Built on one of the world's largest
-          <span class="hl">learning ecosystems.</span>
+          <span class="hl">learning ecosystems</span>
         </h2>
 
         <ul class="proof-list reveal" style="--d:.16s">
@@ -1576,31 +1576,31 @@ openAcc(0);
 const DOMAINS = [
   {
     name: "STEM & Education", claim: "Reasoning & Education", color: "#3cc48f",
-    use: ["Reasoning Datasets", "Solution Grading", "Benchmark Authoring"],
+    use: ["Reasoning Traces", "Solution Grading", "Benchmark Authoring"],
     experts: "Olympiad-level problem setters, examiners, and educators across math, physics, and code.",
-    data: "8M+ solved Q&As with step-by-step reasoning, assessments, and misconception patterns.",
+    data: "8M+ expert-verified Q&As with step-by-step reasoning traces and misconception patterns.",
     built: "Reasoning models, math and code fine-tuning, benchmark creation, and step-by-step evaluation.",
   },
   {
     name: "Medical", claim: "Clinical AI", color: "#35bdb4",
-    use: ["Clinical Review", "Safety Evaluation", "Medical Annotation"],
+    use: ["Clinical Review", "Safety Evaluation", "Clinical-Grade Annotation"],
     experts: "Practicing doctors, MBBS/MD specialists, and clinical reviewers across disciplines.",
     data: "Clinician-reviewed Q&A, diagnosis explanation traces, and health-safety evaluation sets.",
     built: "Clinical reasoning models, medical safety evaluation, and regulated health AI applications.",
   },
   {
-    name: "Voice & Language", claim: "Indic Speech", color: "#8b7cf6",
+    name: "Voice & Language", claim: "Voice Infrastructure", color: "#8b7cf6",
     use: ["Indic Speech", "Transcription", "Localization QA"],
     experts: "Native speakers, linguists, and reviewers across 22+ Indic languages.",
-    data: "Studio-grade speech, multilingual datasets, and annotated audio collected through 500+ owned studios.",
+    data: "Studio-grade speech, multilingual datasets, and annotated audio from 500+ Owned Studios.",
     built: "Automatic Speech Recognition (ASR), Text-to-Speech (TTS), multilingual language models, and voice AI applications.",
   },
   {
-    name: "Physical AI", claim: "Embodied AI", frontier: true, color: "#d3a55c",
+    name: "Physical AI", claim: "Emerging Capability", frontier: true, color: "#d3a55c",
     use: ["Multimodal Capture", "Sensor Sync", "Embodied Evaluation"],
     experts: "Managed field-collection teams capturing real human demonstrations on the ground in India.",
     data: "Real-world, multi-sensor recordings of human activity and edge-case scenarios.",
-    built: "Vision-language models, robotics, and embodied AI grounded in real human demonstrations.",
+    built: "Human feedback for the physical world: vision-language models, robotics, and embodied AI.",
   },
 ];
 const tabsEl = document.querySelector(".domain-tabs");
