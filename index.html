@@ -37,7 +37,7 @@
   --radius-btn: 8px;
   --radius-card: 12px;
   --radius-sm: 10px;
-  --page: 76rem;
+  --page: 82rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -232,7 +232,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 .hero-chip .diamond { color: var(--violet-bright); font-size: 0.7rem; }
 .hero-chip .txt { font-family: var(--font-body); font-size: 0.8438rem; letter-spacing: 0.005em; color: var(--text-dim); }
 .hero-title {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(2.9rem, 6.6vw, 5.3rem);
@@ -395,7 +395,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 /* ---------- our infrastructure (centered diagram) ---------- */
 .plat { overflow: hidden; }
 .plat-head { display: grid; gap: 1.8rem; }
-@media (min-width: 900px) { .plat-head { grid-template-columns: 1fr 1fr; align-items: end; } }
+@media (min-width: 900px) { .plat-head { grid-template-columns: 1fr 1fr; align-items: start; } }
 .plat-head h2 .hl { color: var(--violet-bright); }
 .plat-head .lede { font-size: 1.0313rem; line-height: 1.75; color: var(--text-dim); max-width: 30rem; }
 @media (min-width: 900px) { .plat-head .lede { justify-self: end; } }
@@ -516,8 +516,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 .acc-card:hover::before, .acc-card.open::before { opacity: 1; }
 .acc-card:focus-visible { border-color: var(--ac); }
 @media (min-width: 900px) {
-  .acc-card { flex: 1; min-width: 0; min-height: 33rem; }
-  .acc-card:first-child:not(.open) { flex: 1.35; }
+  .acc-card { flex: 1.15; min-width: 0; min-height: 33rem; }
   .acc-card.open { flex: 3.4; }
 }
 .acc-card:hover { border-color: color-mix(in srgb, var(--ac) 45%, var(--line)); }
@@ -532,7 +531,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 .acc-card.open .acc-collapsed { opacity: 0; pointer-events: none; }
 .acc-collapsed .name {
   font-family: var(--font-display); font-weight: 600;
-  font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--text);
+  font-size: 1.0625rem; line-height: 1.25; letter-spacing: -0.01em; color: var(--text);
 }
 
 /* icon chip (shared) — adopts each card's accent */
@@ -557,18 +556,27 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
   mask-image: linear-gradient(180deg, black 55%, transparent 100%);
   -webkit-mask-image: linear-gradient(180deg, black 55%, transparent 100%);
 }
-.acc-content { padding: 1.5rem 1.9rem 1.9rem; display: flex; flex-direction: column; flex: 1; min-width: 17rem; }
-.acc-content .acc-text { margin-top: auto; max-width: 27rem; }
+.acc-content { padding: 1.5rem 1.9rem 1.9rem; display: flex; flex-direction: column; justify-content: flex-end; flex: 1; min-width: 17rem; }
+.acc-content .acc-text { max-width: 27rem; }
+.acc-content .acc-text .icon-chip { margin-bottom: 1rem; }
 .acc-content h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.55rem, 2.3vw, 2.1rem); line-height: 1.12; letter-spacing: -0.015em; }
 .acc-content .tagline { margin-top: 0.55rem; font-family: var(--font-body); font-weight: 500; font-size: 0.9688rem; color: var(--ac); }
 .acc-content .body { margin-top: 0.95rem; font-size: 0.9063rem; line-height: 1.7; color: var(--text-dim); }
+.acc-more {
+  align-self: flex-end; margin-top: 1.4rem;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-weight: 500; font-size: 0.875rem;
+  color: var(--ac); transition: color 0.25s ease;
+}
+.acc-more .arr { transition: transform 0.25s var(--ease); }
+.acc-more:hover .arr { transform: translateX(3px); }
 @media (max-width: 899px) {
   .acc-card { cursor: default; }
   .acc-card::before { opacity: 1; }
   .acc-collapsed { display: none; }
   .acc-expanded { opacity: 1; }
   .acc-visual { height: 9rem; }
-  .acc-content { padding-top: 1.2rem; }
+  .acc-content { padding-top: 1.2rem; justify-content: flex-start; }
   .acc-content .acc-text { margin-top: 1.2rem; }
 }
 
@@ -644,7 +652,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 /* left rail: headline block top, callout anchored bottom */
 .proof-left { display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; }
 .proof-title {
-  margin-top: 1.8rem;
+  margin-top: 1.5rem;
   font-family: var(--font-display); font-weight: 600;
   font-size: clamp(2.1rem, 3.4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.02em;
 }
@@ -762,9 +770,9 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
   line-height: 1.06; letter-spacing: -0.025em;
 }
 .cta-title .hl { color: var(--violet-bright); }
-.cta .body-lg { margin: 1.75rem auto 0; max-width: 40rem; }
+.cta .body-lg { margin: 1.25rem auto 0; max-width: 54rem; }
 .cta-actions {
-  margin-top: 3rem; display: flex; flex-wrap: wrap;
+  margin-top: 2.25rem; display: flex; flex-wrap: wrap;
   justify-content: center; align-items: center; gap: 1rem;
 }
 .cta-actions .btn { padding: 0.8rem 1.5rem; font-size: 1rem; }
@@ -772,12 +780,12 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 /* ---------- cta ecosystem artwork ---------- */
 .cta-art {
   position: relative;
-  margin: 8rem auto 0;
-  max-width: 72rem;
-  height: clamp(400px, 48vh, 540px);
+  margin: 3rem auto 0;
+  max-width: 62rem;
+  height: clamp(340px, 42vh, 460px);
   /* fade the top so the artwork blends into the section background */
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 100%);
-          mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 11%, #000 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 11%, #000 100%);
 }
 /* contained: never bleed upward into the content above */
 .art-bg { position: absolute; inset: 0 -3% -6% -3%; pointer-events: none; }
@@ -947,7 +955,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       <span class="byline">A PhysicsWallah company</span>
     </a>
     <nav class="nav-links">
-      <a href="#platform">Platform</a>
+      <a href="#platform">Overview</a>
       <a href="#process">How&nbsp;it&nbsp;works</a>
       <a href="#domains">Domains</a>
       <a href="#why">Why&nbsp;2une</a>
@@ -963,7 +971,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
 <div class="mm-backdrop" id="mmBackdrop" aria-hidden="true"></div>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <nav class="mm-links">
-    <a href="#platform">Platform</a>
+    <a href="#platform">Overview</a>
     <a href="#process">How it works</a>
     <a href="#domains">Domains</a>
     <a href="#why">Why 2une</a>
@@ -1026,9 +1034,13 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
 <!-- ================= 2 · OUR INFRASTRUCTURE ================= -->
 <section id="platform" class="plat">
   <div class="page">
-    <div class="plat-head">
-      <h2 class="h-section reveal">Our <span class="hl">Infrastructure</span></h2>
-      <p class="lede reveal" style="--d:.1s">
+    <div class="hero-chip reveal">
+      <span class="diamond">◆</span>
+      <span class="txt">Overview</span>
+    </div>
+    <div class="plat-head" style="margin-top:1.5rem">
+      <h2 class="h-section reveal" style="--d:.08s">Our <span class="hl">Infrastructure</span></h2>
+      <p class="lede reveal" style="--d:.16s">
         2une combines expert talent, data operations, and quality systems into
         one integrated infrastructure for frontier AI development.
       </p>
@@ -1087,7 +1099,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       <span class="diamond">◆</span>
       <span class="txt">How it works</span>
     </div>
-    <div class="plat-head" style="margin-top:1.8rem">
+    <div class="plat-head" style="margin-top:1.5rem">
       <h2 class="h-section reveal" style="--d:.08s">
         From experts to<br /><span class="hl">model-ready AI</span>
       </h2>
@@ -1110,7 +1122,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       <span class="diamond">◆</span>
       <span class="txt">Domain expertise</span>
     </div>
-    <div class="plat-head" style="margin-top:1.8rem">
+    <div class="plat-head" style="margin-top:1.5rem">
       <h2 class="h-section reveal" style="--d:.08s">
         Specialized expertise<br /><span class="hl">for frontier AI</span>
       </h2>
@@ -1287,7 +1299,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       <p class="mono-label" style="margin-top:.6rem">AI Data &amp; Human Infrastructure · A PhysicsWallah company</p>
     </div>
     <nav class="foot-links" aria-label="Footer">
-      <a href="#platform">Platform</a>
+      <a href="#platform">Overview</a>
       <a href="#process">How it works</a>
       <a href="#domains">Domains</a>
       <a href="#why">Why 2une</a>
@@ -1543,12 +1555,14 @@ ACC.forEach((s, i) => {
     "</div>" +
     '<div class="acc-expanded">' +
     '<div class="acc-visual"><svg aria-hidden="true"></svg></div>' +
-    '<div class="acc-content">' + iconSvg(s.icon) +
-    '<div class="acc-text">' +
+    '<div class="acc-content">' +
+    '<div class="acc-text">' + iconSvg(s.icon) +
     "<h3>" + s.name + "</h3>" +
     '<p class="tagline">' + s.tag + "</p>" +
     '<p class="body">' + s.body + "</p>" +
-    "</div></div></div>";
+    "</div>" +
+    '<a class="acc-more" href="#contact">Learn more <span class="arr">→</span></a>' +
+    "</div></div>";
   accRow.appendChild(card);
   drawWave(card.querySelector(".acc-visual svg"), i * 2.3 + 0.7, s.accent);
 });
