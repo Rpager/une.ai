@@ -395,10 +395,10 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 /* ---------- our infrastructure (centered diagram) ---------- */
 .plat { overflow: hidden; }
 .plat-head { display: grid; gap: 1.8rem; }
-@media (min-width: 900px) { .plat-head { grid-template-columns: 1fr 1fr; align-items: start; } }
+@media (min-width: 900px) { .plat-head { grid-template-columns: 1fr 1fr; align-items: end; } }
 .plat-head h2 .hl { color: var(--violet-bright); }
-.plat-head .lede { font-size: 1.0313rem; line-height: 1.75; color: var(--text-dim); max-width: 33rem; }
-@media (min-width: 900px) { .plat-head .lede { justify-self: end; padding-top: 0.5rem; } }
+.plat-head .lede { font-size: 1.0313rem; line-height: 1.75; color: var(--text-dim); max-width: 30rem; }
+@media (min-width: 900px) { .plat-head .lede { justify-self: end; } }
 .plat-rule { margin-top: 3.2rem; height: 1px; background: var(--line); }
 
 .diagram { position: relative; margin-top: 4.5rem; }
@@ -411,54 +411,89 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 .stream { stroke-linecap: round; animation: stream-flow var(--sd, 7s) linear infinite; animation-delay: var(--so, 0s); }
 @keyframes stream-flow { to { stroke-dashoffset: -96; } }
 
-.diagram-inner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.diagram-inner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 4.5rem; }
+/* logo anchored to the point where the background art lines converge */
 .d-logo {
-  width: 62px; height: 62px; border-radius: var(--radius-card);
+  position: absolute; top: 1rem; left: 50%; margin-left: -26px;
+  width: 52px; height: 52px; border-radius: var(--radius-sm);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-weight: 700; font-size: 1.85rem; color: #ffffff;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: #ffffff;
   background: linear-gradient(145deg, #8b7cf6 0%, #5f4bd8 100%);
-  box-shadow: 0 0 70px rgba(139, 124, 246, 0.5), 0 14px 34px -12px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 0 44px rgba(139, 124, 246, 0.35), 0 12px 28px -14px rgba(0, 0, 0, 0.6);
 }
-.d-drop {
-  width: 1px; height: 2.6rem;
-  background-image: linear-gradient(180deg, rgba(255,255,255,0.28) 55%, transparent 0);
-  background-size: 1px 7px;
+
+/* clean vertical connectors that draw in on reveal */
+.d-conn { display: flex; justify-content: center; margin: 0.7rem 0; }
+.d-conn.reveal { transform: none; }
+.d-conn .line {
+  display: block; width: 1px; height: 2.3rem;
+  background: linear-gradient(180deg, var(--line-strong), rgba(255, 255, 255, 0.02));
+  transform: scaleY(0); transform-origin: top center;
+  transition: transform 0.7s var(--ease); transition-delay: var(--d, 0s);
 }
-.d-caption { font-weight: 600; font-size: 1.0625rem; color: var(--text); letter-spacing: 0.01em; }
-.d-pills { margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.9rem; }
+.d-conn.in .line { transform: scaleY(1); }
+
+/* inputs: infrastructure pills, each with its own accent */
+.d-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
 .d-pill {
+  --pc: var(--violet);
+  position: relative; overflow: hidden; white-space: nowrap;
   border: 1px solid var(--line-strong); border-radius: 999px;
   padding: 0.6rem 1.5rem;
   font-family: var(--font-body); font-weight: 500;
-  font-size: 0.9375rem; color: var(--text);
+  font-size: 0.875rem; color: var(--text-dim);
   background: rgba(255, 255, 255, 0.02);
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease);
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease),
+    color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.d-pill:hover { border-color: rgba(139, 124, 246, 0.55); background: rgba(139, 124, 246, 0.07); transform: translateY(-2px); }
-.d-elbow { width: min(640px, 88vw); height: 46px; margin-top: 1.3rem; }
-.d-elbow + .d-caption { margin-top: 1.3rem; }
-.d-bracket { margin-top: 1.3rem; }
+.d-pill::before {
+  content: ""; position: absolute; top: 0; left: -130%; width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--pc) 24%, transparent), transparent);
+  transform: skewX(-18deg);
+}
+.d-pill:hover {
+  color: var(--text); transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--pc) 60%, var(--line-strong));
+  background: color-mix(in srgb, var(--pc) 8%, transparent);
+  box-shadow: 0 6px 22px -10px color-mix(in srgb, var(--pc) 65%, transparent);
+}
+.d-pill:hover::before { animation: pill-shimmer 0.85s var(--ease); }
+@keyframes pill-shimmer { from { left: -130%; } to { left: 130%; } }
+
+/* capabilities: cards inherit the pillar accent */
 .d-cards {
-  margin-top: 0; width: min(640px, 100%);
+  width: min(640px, 100%);
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
 }
 .d-card {
+  --cc: var(--violet);
   border: 1px solid var(--line); border-radius: var(--radius-card);
   background: rgba(13, 13, 20, 0.78); backdrop-filter: blur(4px);
   padding: 1.6rem 1.3rem;
-  transition: border-color 0.3s ease, transform 0.3s var(--ease);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease),
+    background 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-.d-card:hover { border-color: rgba(139, 124, 246, 0.45); transform: translateY(-3px); }
+.d-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--cc) 48%, var(--line));
+  background: color-mix(in srgb, var(--cc) 6%, rgba(13, 13, 20, 0.82));
+  box-shadow: 0 20px 50px -28px color-mix(in srgb, var(--cc) 60%, transparent);
+}
 .d-card h3 {
   font-family: var(--font-display); font-weight: 600;
-  font-size: 1.2rem; color: var(--text);
+  font-size: 1.2rem; color: var(--text); transition: color 0.3s var(--ease);
 }
+.d-card:hover h3 { color: color-mix(in srgb, var(--cc) 62%, var(--text)); }
 .d-card p { margin-top: 0.55rem; font-size: 0.8125rem; line-height: 1.6; color: var(--text-dim); }
+
+/* outcome */
+.d-outcome {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 1.2rem; letter-spacing: -0.01em; color: var(--text);
+}
+
 @media (max-width: 700px) {
-  .d-elbow, .d-bracket { display: none; }
-  .d-cards { grid-template-columns: 1fr; margin-top: 1.4rem; }
-  .d-caption + .d-cards { margin-top: 1.4rem; }
-  .d-pills + .d-caption { margin-top: 1.6rem; }
+  .d-cards { grid-template-columns: 1fr; }
 }
 
 /* ---------- how it works (expanding accordion cards) ---------- */
@@ -990,9 +1025,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
 <section id="platform" class="plat">
   <div class="page">
     <div class="plat-head">
-      <h2 class="h-section reveal">
-        Our<br /><span class="hl">Infrastructure</span>
-      </h2>
+      <h2 class="h-section reveal">Our <span class="hl">Infrastructure</span></h2>
       <p class="lede reveal" style="--d:.1s">
         2une combines expert talent, data operations, and quality systems into
         one integrated infrastructure for frontier AI development.
@@ -1008,40 +1041,38 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       </div>
 
       <div class="diagram-inner">
-        <div class="d-logo reveal" style="--d:.1s">2</div>
-        <div class="d-drop reveal" style="--d:.18s"></div>
-        <p class="d-caption reveal" style="--d:.26s">2une Infrastructure</p>
+        <div class="d-logo reveal" style="--d:.05s">2</div>
+        <div class="d-conn reveal" style="--d:.12s"><span class="line"></span></div>
 
-        <div class="d-pills reveal" style="--d:.34s">
-          <span class="d-pill">Human Experts</span>
-          <span class="d-pill">Data Infrastructure</span>
-          <span class="d-pill">Quality Systems</span>
+        <!-- inputs -->
+        <div class="d-pills reveal" style="--d:.18s">
+          <span class="d-pill" style="--pc:#8b7cf6">Human Experts</span>
+          <span class="d-pill" style="--pc:#5b8def">Data Infrastructure</span>
+          <span class="d-pill" style="--pc:#45d983">Quality Systems</span>
         </div>
 
-        <svg class="d-elbow reveal" style="--d:.42s" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M100 0 V20 M300 0 V20 M500 0 V20 M100 20 H500 M300 20 V46" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-        </svg>
+        <div class="d-conn reveal" style="--d:.26s"><span class="line"></span></div>
 
-        <p class="d-caption reveal" style="--d:.5s">For frontier AI development</p>
-
-        <svg class="d-elbow d-bracket reveal" style="--d:.58s" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M300 0 V16 M100 16 H500 M100 16 V46 M300 16 V46 M500 16 V46" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-        </svg>
-
+        <!-- capabilities -->
         <div class="d-cards">
-          <div class="d-card reveal" style="--d:.66s">
+          <div class="d-card reveal" style="--d:.32s; --cc:#8b7cf6">
             <h3>Create</h3>
             <p>Expert-generated datasets, reasoning traces, and multimodal tasks.</p>
           </div>
-          <div class="d-card reveal" style="--d:.74s">
+          <div class="d-card reveal" style="--d:.4s; --cc:#5b8def">
             <h3>Evaluate</h3>
             <p>Model evaluation, factuality review, and benchmark creation.</p>
           </div>
-          <div class="d-card reveal" style="--d:.82s">
+          <div class="d-card reveal" style="--d:.48s; --cc:#45d983">
             <h3>Align</h3>
             <p>RLHF, preference ranking, red teaming, and safety review.</p>
           </div>
         </div>
+
+        <div class="d-conn reveal" style="--d:.56s"><span class="line"></span></div>
+
+        <!-- outcome -->
+        <p class="d-outcome reveal" style="--d:.62s">Powering Frontier AI Development</p>
       </div>
     </div>
   </div>
