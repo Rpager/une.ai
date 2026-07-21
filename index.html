@@ -120,7 +120,7 @@ section { position: relative; padding: 7rem 0; }
 }
 .btn .arr { transition: transform 0.2s var(--ease); }
 .btn:hover .arr { transform: translateX(3px); }
-.btn-primary { background: var(--violet); color: #fff; }
+.btn-primary { background: #6b54d6; color: #fff; }
 .btn-primary:hover { background: var(--violet-bright); }
 .btn-secondary { border: 1px solid var(--line-strong); color: var(--text); }
 .btn-secondary:hover { border-color: var(--violet); background: rgba(139, 124, 246, 0.06); }
@@ -668,6 +668,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 @media (min-width: 640px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
 .stat-card {
+  --sc: var(--violet);
   position: relative; overflow: hidden;
   display: flex; flex-direction: column; justify-content: space-between;
   min-height: 10.5rem;
@@ -679,13 +680,14 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
 @media (min-width: 1024px) { .stat-card { min-height: 11.5rem; } }
 .stat-card::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(75% 65% at 85% -8%, rgba(139, 124, 246, 0.16), transparent 62%);
+  background: radial-gradient(75% 65% at 85% -8%, color-mix(in srgb, var(--sc) 16%, transparent), transparent 62%);
   opacity: 0; transition: opacity 0.5s ease;
 }
 .stat-card:hover {
-  border-color: rgba(139, 124, 246, 0.5); background: var(--surface-2);
+  border-color: color-mix(in srgb, var(--sc) 50%, var(--line));
+  background: color-mix(in srgb, var(--sc) 7%, var(--surface-2));
   transform: translateY(-4px);
-  box-shadow: 0 20px 55px -32px rgba(139, 124, 246, 0.55);
+  box-shadow: 0 20px 55px -32px color-mix(in srgb, var(--sc) 55%, transparent);
 }
 .stat-card:hover::after { opacity: 1; }
 .stat-card .num {
@@ -694,7 +696,7 @@ body.menu-open .mobile-menu { transform: none; opacity: 1; pointer-events: auto;
   letter-spacing: -0.025em;
   transition: color 0.45s ease;
 }
-.stat-card:hover .num { color: #cfc6ff; }
+.stat-card:hover .num { color: color-mix(in srgb, var(--sc) 42%, #ffffff); }
 .stat-card .foot { position: relative; padding-top: 1.6rem; }
 .stat-card .lbl { font-weight: 600; font-size: 0.9375rem; color: var(--text); }
 .stat-card .txt { margin-top: 0.3rem; font-size: 0.8125rem; line-height: 1.55; color: var(--text-dim); }
@@ -999,9 +1001,9 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       </h1>
 
       <p class="hero-sub lift" style="--d:.24s">
-        Train, evaluate, and align AI with expert human intelligence, helping
-        your models perform reliably across languages, cultures, and real-world
-        scenarios.
+        Train, evaluate, and align AI with model-ready data and human
+        infrastructure, helping your models perform reliably across languages,
+        cultures, and real-world scenarios.
       </p>
 
       <div class="hero-ctas lift" style="--d:.36s">
@@ -1057,15 +1059,15 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
         <div class="d-cards">
           <div class="d-card reveal" style="--d:.32s; --cc:#8b7cf6">
             <h3>Create</h3>
-            <p>Expert-generated datasets, reasoning traces, and multimodal tasks.</p>
+            <p>Task design, data collection, and annotation for model-ready data.</p>
           </div>
           <div class="d-card reveal" style="--d:.4s; --cc:#5b8def">
             <h3>Evaluate</h3>
-            <p>Model evaluation, factuality review, and benchmark creation.</p>
+            <p>Expert validation and model evaluation by domain specialists.</p>
           </div>
           <div class="d-card reveal" style="--d:.48s; --cc:#45d983">
             <h3>Align</h3>
-            <p>RLHF, preference ranking, red teaming, and safety review.</p>
+            <p>Quality assurance and expert validation for model-ready outputs.</p>
           </div>
         </div>
 
@@ -1087,7 +1089,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
     </div>
     <div class="plat-head" style="margin-top:1.8rem">
       <h2 class="h-section reveal" style="--d:.08s">
-        From experts to<br /><span class="hl">model-ready AI.</span>
+        From experts to<br /><span class="hl">model-ready AI</span>
       </h2>
       <p class="lede reveal" style="--d:.16s">
         Every project follows a structured workflow—from sourcing domain
@@ -1110,7 +1112,7 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
     </div>
     <div class="plat-head" style="margin-top:1.8rem">
       <h2 class="h-section reveal" style="--d:.08s">
-        Specialized expertise<br /><span class="hl">for frontier AI.</span>
+        Specialized expertise<br /><span class="hl">for frontier AI</span>
       </h2>
       <p class="lede reveal" style="--d:.16s">
         2une brings together domain specialists, high-quality datasets, and
@@ -1141,14 +1143,10 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
         </div>
         <h2 class="proof-title reveal" style="--d:.08s">
           Built on one of the world's largest
-          <span class="hl">learning ecosystems.</span>
+          <span class="hl">learning ecosystems</span>
         </h2>
 
         <ul class="proof-list reveal" style="--d:.16s">
-          <li>
-            <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zm-9 9l9 5 9-5"/></svg>
-            <span>PhysicsWallah Ecosystem</span>
-          </li>
           <li>
             <svg viewBox="0 0 24 24"><path d="M16 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4 21c0-3.3 3.6-5 8-5s8 1.7 8 5"/></svg>
             <span>Expert Human Network</span>
@@ -1167,8 +1165,8 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
       <div class="proof-callout reveal" style="--d:.24s">
         <p class="co-label"><span class="diamond">◆</span> Backed by PhysicsWallah</p>
         <p class="co-body">
-          India's largest education company — the ecosystem behind 2une's
-          expert network, data assets, and operational scale.
+          India's largest learning ecosystem powering 2une's expert network,
+          proprietary data assets, and operational scale.
         </p>
       </div>
     </div>
@@ -1176,48 +1174,48 @@ footer { border-top: 1px solid var(--line); padding: 3rem 0; }
     <!-- Right: editorial paragraph + airy stat grid -->
     <div class="proof-right">
       <p class="proof-lede reveal" style="--d:.1s">
-        2une combines PhysicsWallah's expert network, proprietary educational
-        assets, and operational scale to help frontier AI teams build,
-        evaluate, and align models with confidence.
+        2une combines a vast expert network, proprietary educational assets,
+        and operational scale to help frontier AI teams build, evaluate, and
+        align models with confidence.
       </p>
 
       <div class="stat-grid">
-        <div class="stat-card reveal">
+        <div class="stat-card reveal" style="--sc:#8b7cf6">
           <p class="num" data-count="50" data-suffix="M+">50M+</p>
           <div class="foot">
             <p class="lbl">Learners</p>
             <p class="txt">The learning ecosystem powering frontier AI.</p>
           </div>
         </div>
-        <div class="stat-card reveal" style="--d:.07s">
+        <div class="stat-card reveal" style="--d:.07s; --sc:#45d983">
           <p class="num" data-count="200" data-suffix="K+">200K+</p>
           <div class="foot">
             <p class="lbl">Expert Contributors</p>
             <p class="txt">IIT, MBBS, MBA, and PhD backgrounds.</p>
           </div>
         </div>
-        <div class="stat-card reveal" style="--d:.14s">
+        <div class="stat-card reveal" style="--d:.14s; --sc:#5b8def">
           <p class="num" data-count="10" data-suffix=",000+">10,000+</p>
           <div class="foot">
             <p class="lbl">Educators</p>
             <p class="txt">Active teachers and professors.</p>
           </div>
         </div>
-        <div class="stat-card reveal" style="--d:.21s">
+        <div class="stat-card reveal" style="--d:.21s; --sc:#e2944a">
           <p class="num" data-count="500" data-suffix="+">500+</p>
           <div class="foot">
             <p class="lbl">Owned Studios</p>
             <p class="txt">Speech and video data produced at source.</p>
           </div>
         </div>
-        <div class="stat-card reveal" style="--d:.28s">
+        <div class="stat-card reveal" style="--d:.28s; --sc:#e5679b">
           <p class="num" data-count="4" data-suffix="M+">4M+</p>
           <div class="foot">
             <p class="lbl">Speech Hours</p>
             <p class="txt">Studio-grade Indic voice corpus.</p>
           </div>
         </div>
-        <div class="stat-card reveal" style="--d:.35s">
+        <div class="stat-card reveal" style="--d:.35s; --sc:#55d6e8">
           <p class="num" data-count="22" data-suffix="+">22+</p>
           <div class="foot">
             <p class="lbl">Indic Languages</p>
@@ -1576,31 +1574,31 @@ openAcc(0);
 const DOMAINS = [
   {
     name: "STEM & Education", claim: "Reasoning & Education", color: "#3cc48f",
-    use: ["Reasoning Datasets", "Solution Grading", "Benchmark Authoring"],
+    use: ["Reasoning Traces", "Solution Grading", "Benchmark Authoring"],
     experts: "Olympiad-level problem setters, examiners, and educators across math, physics, and code.",
-    data: "8M+ solved Q&As with step-by-step reasoning, assessments, and misconception patterns.",
+    data: "8M+ expert-verified Q&As with step-by-step reasoning traces and misconception patterns.",
     built: "Reasoning models, math and code fine-tuning, benchmark creation, and step-by-step evaluation.",
   },
   {
     name: "Medical", claim: "Clinical AI", color: "#35bdb4",
-    use: ["Clinical Review", "Safety Evaluation", "Medical Annotation"],
+    use: ["Clinical Review", "Safety Evaluation", "Clinical-Grade Annotation"],
     experts: "Practicing doctors, MBBS/MD specialists, and clinical reviewers across disciplines.",
     data: "Clinician-reviewed Q&A, diagnosis explanation traces, and health-safety evaluation sets.",
     built: "Clinical reasoning models, medical safety evaluation, and regulated health AI applications.",
   },
   {
-    name: "Voice & Language", claim: "Indic Speech", color: "#8b7cf6",
+    name: "Voice & Language", claim: "Voice Infrastructure", color: "#8b7cf6",
     use: ["Indic Speech", "Transcription", "Localization QA"],
     experts: "Native speakers, linguists, and reviewers across 22+ Indic languages.",
-    data: "Studio-grade speech, multilingual datasets, and annotated audio collected through 500+ owned studios.",
+    data: "Studio-grade speech, multilingual datasets, and annotated audio from 500+ Owned Studios.",
     built: "Automatic Speech Recognition (ASR), Text-to-Speech (TTS), multilingual language models, and voice AI applications.",
   },
   {
-    name: "Physical AI", claim: "Embodied AI", frontier: true, color: "#d3a55c",
+    name: "Physical AI", claim: "Emerging Capability", frontier: true, color: "#d3a55c",
     use: ["Multimodal Capture", "Sensor Sync", "Embodied Evaluation"],
     experts: "Managed field-collection teams capturing real human demonstrations on the ground in India.",
     data: "Real-world, multi-sensor recordings of human activity and edge-case scenarios.",
-    built: "Vision-language models, robotics, and embodied AI grounded in real human demonstrations.",
+    built: "Human feedback for the physical world: vision-language models, robotics, and embodied AI.",
   },
 ];
 const tabsEl = document.querySelector(".domain-tabs");
